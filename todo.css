@@ -1,0 +1,27 @@
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F5F6F9;--fg:#0B1F3A;--mut:#56637A;--card:#fff;--line:#DDE2EA;--acc:#E8912D;--navy:#0B1F3A}
+@media(prefers-color-scheme:dark){:root{--bg:#07152A;--fg:#EAF0F8;--mut:#9BA9BF;--card:#0E2340;--line:#1E3557}}
+*{box-sizing:inherit}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 Manrope,system-ui,sans-serif;display:flex;justify-content:center;padding:24px 16px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.app{width:100%;max-width:560px}
+h1{font-size:30px;margin:0 0 4px;font-weight:800}
+p.s{color:var(--mut);margin:0 0 20px}
+form{display:flex;gap:8px;margin-bottom:16px}
+input[type=text]{flex:1;min-width:0;padding:13px 14px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--fg);font:inherit}
+input[type=text]:focus{border-color:var(--acc)}
+button{font:700 15px Manrope,sans-serif;cursor:pointer;border-radius:10px;border:2px solid var(--acc)}
+.add{background:var(--acc);color:#0B1F3A;padding:0 20px}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{background:none;color:var(--fg);border-color:var(--line);padding:7px 14px}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+li input{width:22px;height:22px;accent-color:var(--acc);flex:none}
+li span{flex:1;word-break:break-word}
+li.d span{text-decoration:line-through;color:var(--mut)}
+li .x{background:none;border:0;color:var(--mut);font-size:20px;padding:2px 8px}
+li .x:hover{color:#C0392B}
+.empty{text-align:center;color:var(--mut);padding:28px;border:2px dashed var(--line);border-radius:12px}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:var(--mut);font-weight:700}
+.foot button{background:none;color:var(--mut);border-color:var(--line);padding:6px 12px}
+.bk{display:inline-block;margin-bottom:14px;color:var(--mut);font-weight:700;text-decoration:none}.bk:hover{color:var(--fg)}

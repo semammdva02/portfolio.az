@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Todo List — Səma Məmmədova</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="todo.css">
+</head>
+<body>
+<div class="app">
+<a class="bk" href="index.html" target="_blank" rel="noopener">← Portfolioya qayıt</a><h1>Todo List</h1>
+<p class="s">Tapşırıqlarınızı əlavə edin, tamamlayın, silin. Məlumat brauzerdə saxlanılır.</p>
+<form id="f"><input id="t" type="text" placeholder="Yeni tapşırıq yazın" maxlength="120" aria-label="Yeni tapşırıq" autocomplete="off"><button class="add" type="submit">Əlavə et</button></form>
+<div class="tabs" id="tabs"></div>
+<ul id="l"></ul>
+<div class="foot"><span id="c"></span><button id="cl" type="button">Tamamlananları sil</button></div>
+</div>
+<script>
+var K="todos-sema",todos=[],flt="all",L=document.getElementById("l");
+try{todos=JSON.parse(localStorage.getItem(K))||[]}catch(e){}
+if(!todos.length&&!window.__seen){todos=[{id:1,t:"Portfolio saytını yeniləmək",d:true},{id:2,t:"React öyrənməyə davam etmək",d:false},{id:3,t:"Dövlət qulluğu hazırlığı",d:false}]}
+function save(){try{localStorage.setItem(K,JSON.stringify(todos))}catch(e){}}
+var F={all:"Hamısı",act:"Aktiv",done:"Tamamlanan"};
+function render(){
+document.getElementById("tabs").innerHTML=Object.keys(F).map(function(k){return '<button type="button" data-f="'+k+'" class="'+(k===flt?"on":"")+'">'+F[k]+"</button>"}).join("");
+var v=todos.filter(function(x){return flt==="all"||(flt==="done"?x.d:!x.d)});
+L.innerHTML=v.length?"":"";
+if(!v.length){L.innerHTML='<div class="empty">Burada tapşırıq yoxdur. Yuxarıdan yenisini əlavə edin.</div>'}
+v.forEach(function(x){var li=document.createElement("li");if(x.d)li.className="d";
+var cb=document.createElement("input");cb.type="checkbox";cb.checked=x.d;cb.setAttribute("aria-label","Tamamlandı");cb.onchange=function(){x.d=cb.checked;save();render()};
+var sp=document.createElement("span");sp.textContent=x.t;
+var b=document.createElement("button");b.className="x";b.type="button";b.textContent="×";b.setAttribute("aria-label","Sil");b.onclick=function(){todos=todos.filter(function(y){return y!==x});save();render()};
+li.append(cb,sp,b);L.appendChild(li)});
+var n=todos.filter(function(x){return!x.d}).length;
+document.getElementById("c").textContent=n+" aktiv tapşırıq";
+}
+document.getElementById("f").onsubmit=function(e){e.preventDefault();var i=document.getElementById("t"),v=i.value.trim();if(!v)return;todos.unshift({id:Date.now(),t:v,d:false});i.value="";save();render()};
+document.getElementById("tabs").onclick=function(e){var f=e.target.dataset.f;if(f){flt=f;render()}};
+document.getElementById("cl").onclick=function(){todos=todos.filter(function(x){return!x.d});save();render()};
+render();
+</script>
+</body>
+</html>
